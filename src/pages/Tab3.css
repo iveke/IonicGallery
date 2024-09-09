@@ -1,0 +1,37 @@
+/* ion-action-sheet.my-custom-class .action-sheet-group {
+    background: #f58840;
+  }
+  
+  ion-action-sheet.my-custom-class .action-sheet-title {
+    color: #fff;
+  }
+  
+  ion-action-sheet.my-custom-class .action-sheet-cancel::after {
+    background: #e97223;
+  }
+  
+  ion-action-sheet.my-custom-class .action-sheet-button,
+  ion-action-sheet.my-custom-class .action-sheet-button.ion-focused {
+    color: #000000;
+  }
+  
+  @media (any-hover: hover) {
+    ion-action-sheet.my-custom-class .action-sheet-button:hover {
+      color: #000000;
+    }
+  }
+  
+  ion-action-sheet.my-custom-class ion-backdrop {
+    opacity: 0.6;
+  } */
+
+ion-action-sheet.my-custom-class {
+  --background: #f58840;
+  --color: #fff;
+  --button-background-hover: #afafb3;
+  --button-color: #0f0f;
+
+  --backdrop-opacity: 0.5;
+  --ion-color-danger: #0ff;
+}
+

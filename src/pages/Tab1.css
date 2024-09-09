@@ -1,0 +1,20 @@
+ion-card-title {
+  --color: #52ffe4;
+}
+
+ion-card-subtitle {
+  --color: #bd4b1a;
+}
+
+ion-checkbox {
+  --size: 32px;
+}
+
+ion-checkbox::part(container) {
+  border: 2px dashed #ff0;
+}
+
+ion-chip {
+    --background: #00213f;
+    --color: #adefd1;
+  }
