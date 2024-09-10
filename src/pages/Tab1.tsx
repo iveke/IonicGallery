@@ -26,9 +26,19 @@ import {
   IonNote,
   IonPage,
   IonPopover,
+  IonProgressBar,
+  IonRadio,
+  IonRadioGroup,
+  IonRefresher,
+  IonRefresherContent,
+  IonReorder,
+  IonReorderGroup,
   IonRow,
+  IonSearchbar,
   IonTitle,
   IonToolbar,
+  ItemReorderEventDetail,
+  RefresherEventDetail,
 } from "@ionic/react";
 import ExploreContainer from "../components/ExploreContainer";
 import "./Tab1.css";
@@ -38,26 +48,52 @@ import {
   close,
   listCircle,
   pin,
+  pizza,
+  searchCircle,
   square,
+  trash,
 } from "ionicons/icons";
 import Tab3 from "./Tab3.js";
+import { useEffect, useState } from "react";
 
 const Tab1: React.FC = () => {
+  function handleRefresh(event: CustomEvent<RefresherEventDetail>) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      event.detail.complete();
+    }, 2000);
+  }
+  function handleReorder(event: CustomEvent<ItemReorderEventDetail>) {
+    // The `from` and `to` properties contain the index of the item
+    // when the drag started and ended, respectively
+    console.log('Dragged from index', event.detail.from, 'to', event.detail.to);
+
+    // Finish the reorder and position the item in the DOM based on
+    // where the gesture ended. This method can also be called directly
+    // by the reorder group
+    event.detail.complete();
+  }
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonTitle>Tab 1</IonTitle>
-          <IonNavLink routerDirection="forward" component={()=><Tab3 />}>
+          <IonNavLink routerDirection="forward" component={() => <Tab3 />}>
             <IonButton>Go to Tab 3</IonButton>
           </IonNavLink>
+          <IonSearchbar color="danger" showCancelButton="focus"  cancelButtonIcon={trash} searchIcon={searchCircle} animated={true} placeholder="Animated search"></IonSearchbar>
+          <IonProgressBar type="indeterminate" color="danger"></IonProgressBar>
           <IonButton id="click-trigger"> Click Me</IonButton>
           <IonPopover trigger="click-trigger" triggerAction="hover">
-            <IonContent >Hello, World!</IonContent>
+            <IonContent>Hello, World!</IonContent>
           </IonPopover>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
+      <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+          <IonRefresherContent>
+          </IonRefresherContent>
+        </IonRefresher>
         <IonList>
           <IonCard color="success">
             <IonCardHeader>
@@ -142,6 +178,46 @@ const Tab1: React.FC = () => {
             </IonFabButton>
           </IonFabList>
         </IonFab>
+        <IonRadioGroup value="strawberries">
+          <IonRadio value="grapes">Grapes</IonRadio>
+          <br />
+          <IonRadio value="strawberries">Strawberries</IonRadio>
+          <br />
+          <IonRadio value="pineapple">Pineapple</IonRadio>
+          <br />
+          <IonRadio value="cherries">Cherries</IonRadio>
+        </IonRadioGroup>
+        <IonList>
+      {/* The reorder gesture is disabled by default, enable it to drag and drop items */}
+      <IonReorderGroup disabled={false} onIonItemReorder={handleReorder}>
+        <IonItem>
+          <IonLabel>Item 1</IonLabel>
+          <IonReorder slot="end">
+            <IonIcon icon={pizza}></IonIcon>
+          </IonReorder>
+        </IonItem>
+
+        <IonItem>
+          <IonLabel>Item 2</IonLabel>
+          <IonReorder slot="end"></IonReorder>
+        </IonItem>
+
+        <IonItem>
+          <IonLabel>Item 3</IonLabel>
+          <IonReorder slot="end"></IonReorder>
+        </IonItem>
+
+        <IonItem>
+          <IonLabel>Item 4</IonLabel>
+          <IonReorder slot="end"></IonReorder>
+        </IonItem>
+
+        <IonItem>
+          <IonLabel>Item 5</IonLabel>
+          <IonReorder slot="end"></IonReorder>
+        </IonItem>
+      </IonReorderGroup>
+    </IonList>
       </IonContent>
     </IonPage>
   );

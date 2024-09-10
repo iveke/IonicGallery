@@ -16,7 +16,12 @@ import {
   IonList,
   IonPage,
   IonRow,
+  IonSegment,
+  IonSegmentButton,
+  IonSelect,
+  IonSelectOption,
   IonTitle,
+  IonToggle,
   IonToolbar,
 } from "@ionic/react";
 import ExploreContainer from "../components/ExploreContainer";
@@ -76,51 +81,73 @@ const Tab3: React.FC = () => {
         </IonGrid>
       </IonContent>
       <IonContent>
-      <IonList>
-        {items.map((item, index) => (
-          <IonItem key={item}>
-            <IonAvatar slot="start">
-              <img src={'https://picsum.photos/80/80?random=' + index} alt="avatar" />
-            </IonAvatar>
-            <IonLabel>{item}</IonLabel>
-          </IonItem>
-        ))}
-      </IonList>
-      <IonInfiniteScroll>
-        <IonInfiniteScrollContent loadingText="Please wait..." loadingSpinner="bubbles"></IonInfiniteScrollContent>
-      </IonInfiniteScroll>
-    </IonContent>
+        <IonList>
+          {items.map((item, index) => (
+            <IonItem key={item}>
+              <IonAvatar slot="start">
+                <img
+                  src={"https://picsum.photos/80/80?random=" + index}
+                  alt="avatar"
+                />
+              </IonAvatar>
+              <IonLabel>{item}</IonLabel>
+            </IonItem>
+          ))}
+        </IonList>
+        <IonInfiniteScroll>
+          <IonInfiniteScrollContent
+            loadingText="Please wait..."
+            loadingSpinner="bubbles"
+          ></IonInfiniteScrollContent>
+        </IonInfiniteScroll>
+      </IonContent>
       <IonContent>
-          <IonButton onClick={() => setIsOpen(true)}>Its Sheet</IonButton>
-          <IonActionSheet
-            isOpen={isOpen}
-            header="Its sheet)"
-            className="my-custom-class"
-            buttons={[
-              {
-                text: "Delete",
-                role: "destructive",
-                data: {
-                  action: "delete",
-                },
+        <IonButton onClick={() => setIsOpen(true)}>Its Sheet</IonButton>
+        <IonActionSheet
+          isOpen={isOpen}
+          header="Its sheet)"
+          className="my-custom-class"
+          buttons={[
+            {
+              text: "Delete",
+              role: "destructive",
+              data: {
+                action: "delete",
               },
-              {
-                text: "Share with your friend",
-                data: {
-                  action: "share",
-                },
+            },
+            {
+              text: "Share with your friend",
+              data: {
+                action: "share",
               },
-              {
-                text: "Cancel",
-                role: "cancel",
-                data: {
-                  action: "cancel",
-                },
+            },
+            {
+              text: "Cancel",
+              role: "cancel",
+              data: {
+                action: "cancel",
               },
-            ]}
-            onDidDismiss={() => setIsOpen(false)}
-          ></IonActionSheet>
-        </IonContent>
+            },
+          ]}
+          onDidDismiss={() => setIsOpen(false)}
+        ></IonActionSheet>
+      </IonContent>
+      <IonContent>
+      <IonToggle enableOnOffLabels={true} aria-label="Warning toggle" color="warning">Enable Notifications</IonToggle>
+        <IonSegment value="default">
+          <IonSegmentButton value="default">
+            <IonLabel>Default</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton value="segment">
+            <IonLabel>Segment</IonLabel>
+          </IonSegmentButton>
+        </IonSegment>
+        <IonSelect aria-label="fruit" interface="popover" placeholder="Select fruit">
+          <IonSelectOption value="apples">Apples</IonSelectOption>
+          <IonSelectOption value="oranges">Oranges</IonSelectOption>
+          <IonSelectOption value="bananas">Bananas</IonSelectOption>
+        </IonSelect>
+      </IonContent>
 
       <IonFooter>
         <IonToolbar>

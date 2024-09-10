@@ -37,20 +37,7 @@ const Tab2: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">
-          This is the menu content.
-        </IonContent>
-      </IonMenu>
-      <IonPage id="main-content">
-        <IonHeader translucent={true}>
-          <IonToolbar>
-            <IonTitle slot="start">Photo Gallery</IonTitle>
-            <IonButtons slot="end">
-              <IonMenuButton></IonMenuButton>
-            </IonButtons>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent>
-          <IonButton onClick={()=>setIsOpen(true)}>
+        <IonButton onClick={()=>setIsOpen(true)}>
             Open MOdal
           </IonButton>
           <IonModal isOpen={isOpen}>
@@ -71,6 +58,20 @@ const Tab2: React.FC = () => {
               </p>
             </IonContent>
           </IonModal>
+          This is the menu content.
+        </IonContent>
+      </IonMenu>
+      <IonPage id="main-content">
+        <IonHeader translucent={true}>
+          <IonToolbar>
+            <IonTitle slot="start">Photo Gallery</IonTitle>
+            <IonButtons slot="end">
+              <IonMenuButton></IonMenuButton>
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
+          
           <IonHeader collapse="condense">
             <IonToolbar>
               <IonTitle>PHOTO</IonTitle>
