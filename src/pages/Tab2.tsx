@@ -19,6 +19,7 @@ import {
   IonButtons,
   IonModal,
   IonButton,
+  IonToast,
 } from "@ionic/react";
 import ExploreContainer from "../components/ExploreContainer";
 import "./Tab2.css";
@@ -40,6 +41,7 @@ const Tab2: React.FC = () => {
         <IonButton onClick={()=>setIsOpen(true)}>
             Open MOdal
           </IonButton>
+          <IonButton id="open-toast">Its Toast</IonButton>
           <IonModal isOpen={isOpen}>
             <IonHeader>
               <IonToolbar>
@@ -86,7 +88,7 @@ const Tab2: React.FC = () => {
               ))}
             </IonRow>
           </IonGrid>
-
+          <IonToast trigger="open-toast" message="This toast will disappear after 5 seconds" duration={5000}></IonToast>
           <IonFab vertical="bottom" horizontal="center" slot="fixed">
             <IonFabButton onClick={() => takePhoto()}>
               <IonIcon icon={camera}></IonIcon>
