@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { isPlatform } from "@ionic/react";
 
-axios.defaults.baseURL = "http://localhost:3009/upload";
+axios.defaults.baseURL = "http://localhost:3008/upload";
 
 import {
   Camera,
@@ -19,8 +19,14 @@ export interface UserPhoto {
   webviewPath?: string;
 }
 
+export interface awsFileRes{
+  url: string;
+  file: {};
+  name: string;
+}
+const photoList = <UserPhoto[]>[];
 export function usePhotoGallery() {
-  const [photos, setPhotos] = useState<UserPhoto[]>([]);
+  // const [photos, setPhotos] = useState<UserPhoto[]>([]);
   const savePicture = async (
     photo: Photo,
     fileName: string
@@ -31,17 +37,15 @@ export function usePhotoGallery() {
     //   data: base64Data,
     //   directory: Directory.Data,
     // });
-    console.log(typeof base64Data);
-    console.log(base64Data)
+    const responseFile = await saveFileAWS(fileName, base64Data);
 
-savePhotoAWS(fileName,base64Data)
-    // Use webPath to display the new image instead of base64 since it's
-    // already loaded into memory
     return {
       filepath: fileName,
-      webviewPath: photo.webPath,
+      webviewPath:  photo.webPath,
     };
+    // responseFile?.url ||
   };
+
 
   const takePhoto = async () => {
     const photo = await Camera.getPhoto({
@@ -51,22 +55,21 @@ savePhotoAWS(fileName,base64Data)
     });
     const fileName = Date.now() + "tkach.jpeg";
     const savedFileImage = await savePicture(photo, fileName);
-    const newPhotos = [savedFileImage,
-      // {
-      //   filepath: fileName,
-      //   webviewPath: photo.webPath,
-      // },
-      ...photos,
+    const newPhotos = [
+      savedFileImage,
+      ...photoList,
     ];
-    setPhotos(newPhotos);
-    console.log(newPhotos)
+    console.log(photoList)
+    // setPhotos(newPhotos);
+    photoList.push(savedFileImage);
+    console.log(photoList)
     // savePhotoAWS(fileName, photo.webPath);
   };
 
   return {
     savePicture,
     takePhoto,
-    photos,
+    photoList,
   };
 }
 
@@ -86,16 +89,17 @@ export async function base64FromPath(path: string): Promise<Blob> {
   //   };
   //   console.log( typeof blob)
   //   // reader.readAsDataURL(blob);
-    
+
   // });
 }
 
-const savePhotoAWS = async (fileName: string, file: any) => {
+const saveFileAWS = async (fileName: string, file: any) => {
   const formdata = new FormData();
   formdata.append("file", file, fileName);
   try {
-    console.log(axios.defaults.baseURL)
-    const res = await axios.post("/", formdata);
+    console.log(axios.defaults.baseURL);
+    const res: awsFileRes = await axios.post("/", formdata);
+    console.log(res);
     return res;
   } catch (error) {
     console.log(error);

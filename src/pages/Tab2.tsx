@@ -24,11 +24,12 @@ import {
 import ExploreContainer from "../components/ExploreContainer";
 import "./Tab2.css";
 import { usePhotoGallery, UserPhoto } from "../hooks/usePhotoGallery";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Tab2: React.FC = () => {
-  const { takePhoto, photos } = usePhotoGallery();
+  const { takePhoto, photoList } = usePhotoGallery();
   const [isOpen, setIsOpen] = useState(false);
+console.log(photoList);
   return (
     <>
       <IonMenu side="end" contentId="main-content">
@@ -38,9 +39,7 @@ const Tab2: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <IonContent className="ion-padding">
-        <IonButton onClick={()=>setIsOpen(true)}>
-            Open MOdal
-          </IonButton>
+          <IonButton onClick={() => setIsOpen(true)}>Open MOdal</IonButton>
           <IonButton id="open-toast">Its Toast</IonButton>
           <IonModal isOpen={isOpen}>
             <IonHeader>
@@ -73,7 +72,6 @@ const Tab2: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <IonContent>
-          
           <IonHeader collapse="condense">
             <IonToolbar>
               <IonTitle>PHOTO</IonTitle>
@@ -81,14 +79,18 @@ const Tab2: React.FC = () => {
           </IonHeader>
           <IonGrid>
             <IonRow>
-              {photos.map((photo, index) => (
+              {photoList.map((photo, index) => (
                 <IonCol size="6" key={photo.filepath}>
                   <IonImg src={photo.webviewPath} />
                 </IonCol>
               ))}
             </IonRow>
           </IonGrid>
-          <IonToast trigger="open-toast" message="This toast will disappear after 5 seconds" duration={5000}></IonToast>
+          <IonToast
+            trigger="open-toast"
+            message="This toast will disappear after 5 seconds"
+            duration={5000}
+          ></IonToast>
           <IonFab vertical="bottom" horizontal="center" slot="fixed">
             <IonFabButton onClick={() => takePhoto()}>
               <IonIcon icon={camera}></IonIcon>
