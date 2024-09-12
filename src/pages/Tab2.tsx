@@ -29,7 +29,8 @@ import { useEffect, useState } from "react";
 const Tab2: React.FC = () => {
   const { takePhoto, photoList } = usePhotoGallery();
   const [isOpen, setIsOpen] = useState(false);
-console.log(photoList);
+
+  
   return (
     <>
       <IonMenu side="end" contentId="main-content">
@@ -79,7 +80,7 @@ console.log(photoList);
           </IonHeader>
           <IonGrid>
             <IonRow>
-              {photoList.map((photo, index) => (
+              {photoList.map((photo) => (
                 <IonCol size="6" key={photo.filepath}>
                   <IonImg src={photo.webviewPath} />
                 </IonCol>
